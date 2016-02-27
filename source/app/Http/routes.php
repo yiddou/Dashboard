@@ -15,6 +15,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+
+Route::post('/admin/login','AdminController@login');
+Route::post('/admin/reset','AdminController@resetPassword');
+Route::post('/admin/cmail','AdminController@confirmMail');
+Route::get('/snapshot/{uid}','SnapshotController@index');
+
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
