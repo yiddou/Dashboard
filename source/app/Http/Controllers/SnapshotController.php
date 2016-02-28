@@ -27,6 +27,8 @@ class SnapshotController extends Controller
     const INDEX_ID_HIREUTIL = 8;
     const INDEX_ID_TIME = 2;
     const INDEX_ID_RECRUIT = 9;
+    const INDEX_ID_LEARNINGHOURS = 10;
+    const INDEX_ID_LEARNINGP = 11;
 
     public  function  Index($uid)
     {
@@ -45,6 +47,7 @@ class SnapshotController extends Controller
             $quizTimes = 0;
             $resignNo = 0;
             $recruitNo = 0;
+
 
             $today = date("Ymd");
             $month = CommonFunc::getTheMonth($today);
