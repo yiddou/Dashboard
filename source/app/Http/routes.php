@@ -22,6 +22,12 @@ Route::post('/admin/reset','AdminController@resetPassword');
 Route::post('/admin/cmail','AdminController@confirmMail');
 Route::get('/snapshot/{uid}','SnapshotController@index');
 Route::get('/trend/{uid}','TrendController@index');
+Route::get('/cfilters/{uid}','CourseMenuController@index');
+Route::get('/getcate/{id}','CategoryController@getCategory');
+Route::get('/course/{uid}','CourseController@index');
+
+
+
 
 
 
