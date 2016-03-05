@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class Department_dim extends Model
 {
     //
-    protected $table = 'departmen_interim';
+    protected $table = 'department_interim';
 }

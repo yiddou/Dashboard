@@ -14,27 +14,39 @@ use App\Http\Controllers\Controller;
 class CourseMenuController extends Controller
 {
     //
-    public  function  index($uid)
+    public  function  index($uid,Request $request)
     {
-        $userInfo= UserInfo::where('user_id','=',intval($uid))->first();
-        $companyID  =  $userInfo['company_id'];
+        $companyID = $request->get('cmpid', '');
 
-        $data = array();
+        $userInfo = UserInfo::where('user_id', '=', intval($uid))
+            ->where('company_id', '=', intval($companyID))
+            ->where('status', '=', 1)
+            ->first();
 
-        $eventarr = Event_dim::whereIN('event_id',array(1,2))->pluck('event_name','event_id');
+        if(isset($userInfo)&&count($userInfo))
+        {
+            $data = array();
 
-        $data['action_name'] = $eventarr;
-        $data['department'] = Department_dim::where('company_id','=',$companyID)->distinct('department')->pluck('department');
+            $eventarr = Event_dim::whereIN('event_id',array(1,2))->pluck('event_name','event_id');
 
-        $data['parent_category'] = Category_dim::where('company_id','=',$companyID)
-                                    ->distinct('parent_category_id')->pluck('parent_category_name','parent_category_id');
+            $data['action_name'] = $eventarr;
+            $data['department'] = Department_dim::where('company_id','=',$companyID)->distinct('department')->pluck('department');
 
-        $data['coures_type'][1] = 'general';
-        $data['coures_type'][0] ='customized';
+            $data['learning_type'][1] = 'learning hours';
+            $data['learning_type'][2] = 'learning times';
+            $data['learning_type'][3] = 'learning users';
+
+            $data['parent_category'] = Category_dim::where('company_id','=',$companyID)
+                ->distinct('parent_category_id')->pluck('parent_category_name','parent_category_id');
+
+            $data['coures_type'][1] = 'general';
+            $data['coures_type'][0] ='customized';
 
 
+            return $data;
 
-        return $data;
+        }
+
 
     }
 
