@@ -169,14 +169,14 @@ class TrendController extends Controller
                         {
                             $arr = array();
                             $data = $this->getData(self::INDEX_ID_PATICIPATE, $stdate, $eddate, $arr, $companyID, $dtype, $contrast);
-                            $trendData['paticipateNo']['src'] = $data;
+                            $trendData['paticipateno']['src'] = $data;
 
                         }
                         elseif ($val == 'ltimes')
                         {
                             $arr = array(self::COURSE_QUIZ,self::COURSE_STUDY);
                             $data = $this->getData(self::INDEX_ID_TIME, $stdate, $eddate, $arr, $companyID, $dtype, $contrast);
-                            $trendData['learningTimes']['src'] = $data;
+                            $trendData['learningtimes']['src'] = $data;
                         }
 
                     }

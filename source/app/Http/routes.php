@@ -28,6 +28,8 @@ Route::get('/course/{uid}','CourseController@index');
 Route::get('/getcourse/{id}','CourseController@getCourse');
 Route::get('/lstar/{uid}','StarController@index');
 Route::get('/time/{uid}','TimeController@index');
+Route::get('/getcmps/{uid}','CompanyController@getcompany');
+
 
 
 

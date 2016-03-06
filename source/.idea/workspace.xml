@@ -37,8 +37,8 @@
       <file leaf-file-name="CourseController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/CourseController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="73.10714">
-              <caret line="35" column="114" selection-start-line="35" selection-start-column="103" selection-end-line="35" selection-end-column="114" />
+            <state vertical-scroll-proportion="-6.107143">
+              <caret line="29" column="58" selection-start-line="29" selection-start-column="58" selection-end-line="29" selection-end-column="58" />
               <folding>
                 <element signature="e#40#60#0#PHP" expanded="true" />
                 <marker date="1457271047000" expanded="true" signature="1280:1409" placeholder="select compa..olap_course_intrim..." />
@@ -54,8 +54,8 @@
       <file leaf-file-name="TrendController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TrendController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.6785714">
-              <caret line="41" column="8" selection-start-line="41" selection-start-column="8" selection-end-line="41" selection-end-column="48" />
+            <state vertical-scroll-proportion="-10.178572">
+              <caret line="181" column="21" selection-start-line="181" selection-start-column="21" selection-end-line="181" selection-end-column="21" />
               <folding>
                 <element signature="e#40#57#0#PHP" expanded="true" />
               </folding>
@@ -63,12 +63,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Olap_course.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Olap_course.php">
+      <file leaf-file-name="CompanyController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/CompanyController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.107143">
-              <caret line="9" column="37" selection-start-line="9" selection-start-column="37" selection-end-line="9" selection-end-column="37" />
-              <folding />
+            <state vertical-scroll-proportion="-11.714286">
+              <caret line="19" column="21" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
+              <folding>
+                <element signature="e#40#57#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -86,8 +88,8 @@
       <file leaf-file-name="StarController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/StarController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="78.53571">
-              <caret line="52" column="16" selection-start-line="52" selection-start-column="16" selection-end-line="52" selection-end-column="16" />
+            <state vertical-scroll-proportion="11.535714">
+              <caret line="37" column="15" selection-start-line="37" selection-start-column="15" selection-end-line="37" selection-end-column="149" />
               <folding>
                 <element signature="e#40#68#0#PHP" expanded="true" />
                 <marker date="1457271884000" expanded="true" signature="1200:1289" placeholder="select DISTI..user_dim..." />
@@ -113,8 +115,8 @@
       <file leaf-file-name="TimeController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TimeController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="45.464287">
-              <caret line="18" column="8" selection-start-line="18" selection-start-column="8" selection-end-line="21" selection-end-column="22" />
+            <state vertical-scroll-proportion="25.107143">
+              <caret line="50" column="15" selection-start-line="50" selection-start-column="15" selection-end-line="50" selection-end-column="123" />
               <folding>
                 <element signature="e#40#68#0#PHP" expanded="true" />
                 <marker date="1457270661000" expanded="true" signature="1597:1842" placeholder="select sum($..olap_event..." />
@@ -138,8 +140,8 @@
       <file leaf-file-name="routes.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/routes.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8676123">
-              <caret line="29" column="32" selection-start-line="29" selection-start-column="32" selection-end-line="29" selection-end-column="32" />
+            <state vertical-scroll-proportion="0.7777778">
+              <caret line="30" column="57" selection-start-line="30" selection-start-column="57" selection-end-line="30" selection-end-column="57" />
               <folding />
             </state>
           </provider>
@@ -176,12 +178,13 @@
         <option value="$PROJECT_DIR$/app/Department_dim.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/SnapshotController.php" />
         <option value="$PROJECT_DIR$/app/Olap_course.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/TrendController.php" />
-        <option value="$PROJECT_DIR$/app/Http/routes.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/TimeController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/CourseController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/StarController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/CourseMenuController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/TrendController.php" />
+        <option value="$PROJECT_DIR$/app/Http/routes.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/CompanyController.php" />
       </list>
     </option>
   </component>
@@ -366,11 +369,12 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="729" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24056605" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24056605" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32761312" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23584905" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -381,7 +385,6 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23667711" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -405,13 +408,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/database/migrations/2016_02_18_090839_create_articles_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.428571">
-          <caret line="14" column="32" selection-start-line="14" selection-start-column="32" selection-end-line="14" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/database/migrations/2014_10_12_100000_create_password_resets_table.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="5.75">
@@ -734,10 +730,33 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/User_dim.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.107143">
+          <caret line="9" column="4" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/CourseController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.107143">
+          <caret line="29" column="58" selection-start-line="29" selection-start-column="58" selection-end-line="29" selection-end-column="58" />
+          <folding>
+            <element signature="e#40#60#0#PHP" expanded="true" />
+            <marker date="1457271047000" expanded="true" signature="1280:1409" placeholder="select compa..olap_course_intrim..." />
+            <marker date="1457271047000" expanded="true" signature="1585:1714" placeholder="select compa..olap_course_intrim..." />
+            <marker date="1457271047000" expanded="true" signature="1815:1872" placeholder="select DISTI..user_dim..." />
+            <marker date="1457271047000" expanded="true" signature="3077:3245" placeholder="select compa..event_summary_fact..." />
+            <marker date="1457271047000" expanded="true" signature="3421:3550" placeholder="select compa..olap_course_intrim..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TimeController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="45.464287">
-          <caret line="18" column="8" selection-start-line="18" selection-start-column="8" selection-end-line="21" selection-end-column="22" />
+        <state vertical-scroll-proportion="25.107143">
+          <caret line="50" column="15" selection-start-line="50" selection-start-column="15" selection-end-line="50" selection-end-column="123" />
           <folding>
             <element signature="e#40#68#0#PHP" expanded="true" />
             <marker date="1457270661000" expanded="true" signature="1597:1842" placeholder="select sum($..olap_event..." />
@@ -747,35 +766,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/User_dim.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.107143">
-          <caret line="9" column="4" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TrendController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.6785714">
-          <caret line="41" column="8" selection-start-line="41" selection-start-column="8" selection-end-line="41" selection-end-column="48" />
+        <state vertical-scroll-proportion="-10.178572">
+          <caret line="181" column="21" selection-start-line="181" selection-start-column="21" selection-end-line="181" selection-end-column="21" />
           <folding>
             <element signature="e#40#57#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/StarController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="78.53571">
-          <caret line="52" column="16" selection-start-line="52" selection-start-column="16" selection-end-line="52" selection-end-column="16" />
-          <folding>
-            <element signature="e#40#68#0#PHP" expanded="true" />
-            <marker date="1457271884000" expanded="true" signature="1200:1289" placeholder="select DISTI..user_dim..." />
-            <marker date="1457271884000" expanded="true" signature="2787:2938" placeholder="select user_..olap_user..." />
-            <marker date="1457271884000" expanded="true" signature="3080:3231" placeholder="select user_..olap_user..." />
-            <marker date="1457271884000" expanded="true" signature="5733:5900" placeholder="select user_..event_summary_fact..." />
-            <marker date="1457271884000" expanded="true" signature="5988:6150" placeholder="select user_..event_summary_fact..." />
           </folding>
         </state>
       </provider>
@@ -790,25 +786,35 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/CourseController.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/StarController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="73.10714">
-          <caret line="35" column="114" selection-start-line="35" selection-start-column="103" selection-end-line="35" selection-end-column="114" />
+        <state vertical-scroll-proportion="11.535714">
+          <caret line="37" column="15" selection-start-line="37" selection-start-column="15" selection-end-line="37" selection-end-column="149" />
           <folding>
-            <element signature="e#40#60#0#PHP" expanded="true" />
-            <marker date="1457271047000" expanded="true" signature="1280:1409" placeholder="select compa..olap_course_intrim..." />
-            <marker date="1457271047000" expanded="true" signature="1585:1714" placeholder="select compa..olap_course_intrim..." />
-            <marker date="1457271047000" expanded="true" signature="1815:1872" placeholder="select DISTI..user_dim..." />
-            <marker date="1457271047000" expanded="true" signature="3077:3245" placeholder="select compa..event_summary_fact..." />
-            <marker date="1457271047000" expanded="true" signature="3421:3550" placeholder="select compa..olap_course_intrim..." />
+            <element signature="e#40#68#0#PHP" expanded="true" />
+            <marker date="1457271884000" expanded="true" signature="1200:1289" placeholder="select DISTI..user_dim..." />
+            <marker date="1457271884000" expanded="true" signature="2787:2938" placeholder="select user_..olap_user..." />
+            <marker date="1457271884000" expanded="true" signature="3080:3231" placeholder="select user_..olap_user..." />
+            <marker date="1457271884000" expanded="true" signature="5733:5900" placeholder="select user_..event_summary_fact..." />
+            <marker date="1457271884000" expanded="true" signature="5988:6150" placeholder="select user_..event_summary_fact..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/CompanyController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.714286">
+          <caret line="19" column="21" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
+          <folding>
+            <element signature="e#40#57#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/routes.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8676123">
-          <caret line="29" column="32" selection-start-line="29" selection-start-column="32" selection-end-line="29" selection-end-column="32" />
+        <state vertical-scroll-proportion="0.7777778">
+          <caret line="30" column="57" selection-start-line="30" selection-start-column="57" selection-end-line="30" selection-end-column="57" />
           <folding />
         </state>
       </provider>
