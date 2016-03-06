@@ -41,7 +41,7 @@ class TrendController extends Controller
         $contrast = $request->get('ctr', '');
         $companyID = $request->get('cmpid', '');
         $trendData = array();
-        $eventName = '';
+        $eventName = array();
         if ($uid && isset($metrics) && isset($stdate) && isset($eddate) && isset($dtype) && isset($contrast)) {
 
             $userInfo = UserInfo::where('user_id', '=', intval($uid))
@@ -55,13 +55,13 @@ class TrendController extends Controller
                     foreach ($metricsArr as $val) {
                         if ($val == 'lhours') {
 
-                            $data = $this->getData(1, $stdate, $eddate, $eventName, $companyID, $dtype, $contrast);
+                            $data = $this->getData(self::INDEX_ID_LEARNINGHOURS, $stdate, $eddate, $eventName, $companyID, $dtype, $contrast);
                             $trendData['learningHours']['src'] = $data;
                             if ($contrast == 'yoy' || $contrast == 'mom') {
                                 $arr = $this->getDateFunc($dtype, $contrast, $stdate, $eddate);
                                 $stdate_c = $arr['start'];
                                 $eddate_c = $arr['end'];
-                                $dataNew = $data = $this->getData(1, $stdate_c, $eddate_c, $eventName, $companyID, $dtype, $contrast);
+                                $dataNew = $data = $this->getData(self::INDEX_ID_LEARNINGHOURS, $stdate_c, $eddate_c, $eventName, $companyID, $dtype, $contrast);
                                 $trendData['learningHours']['new'] = $dataNew;
                             }
 
@@ -121,46 +121,62 @@ class TrendController extends Controller
                             }
 
                         } elseif ($val == 'stuser') {
-                            $data = $this->getData(self::INDEX_ID_USER, $stdate, $eddate, self::COURSE_STUDY, $companyID, $dtype, $contrast);
+                            $arr = array(self::COURSE_STUDY);
+                            $data = $this->getData(self::INDEX_ID_USER, $stdate, $eddate, $arr, $companyID, $dtype, $contrast);
                             $trendData['studyUserNo']['src'] = $data;
                             if ($contrast == 'mom' || $contrast == 'yoy') {
                                 $arr = $this->getDateFunc($dtype, $contrast, $stdate, $eddate);
                                 $stdate_c = $arr['start'];
                                 $eddate_c = $arr['end'];
-                                $data = $this->getData(self::INDEX_ID_USER, $stdate_c, $eddate_c, self::COURSE_STUDY, $companyID, $dtype, $contrast);
+                                $data = $this->getData(self::INDEX_ID_USER, $stdate_c, $eddate_c, $arr, $companyID, $dtype, $contrast);
                                 $trendData['studyUserNo']['new'] = $data;
                             }
                         } elseif ($val == 'quser') {
-                            $data = $this->getData(self::INDEX_ID_USER, $stdate, $eddate, self::COURSE_QUIZ, $companyID, $dtype, $contrast);
+                             $arr = array(self::COURSE_QUIZ);
+                            $data = $this->getData(self::INDEX_ID_USER, $stdate, $eddate,$arr , $companyID, $dtype, $contrast);
                             $trendData['quizUserNo']['src'] = $data;
                             if ($contrast == 'mom' || $contrast == 'yoy') {
                                 $arr = $this->getDateFunc($dtype, $contrast, $stdate, $eddate);
                                 $stdate_c = $arr['start'];
                                 $eddate_c = $arr['end'];
-                                $data = $this->getData(self::INDEX_ID_USER, $stdate_c, $eddate_c, self::COURSE_QUIZ, $companyID, $dtype, $contrast);
+                                $data = $this->getData(self::INDEX_ID_USER, $stdate_c, $eddate_c, $arr, $companyID, $dtype, $contrast);
                                 $trendData['quizUserNo']['new'] = $data;
                             }
                         } elseif ($val == 'pkuser') {
-                            $data = $this->getData(self::INDEX_ID_USER, $stdate, $eddate, self::PK, $companyID, $dtype, $contrast);
+                            $arr = array(self::PK);
+                            $data = $this->getData(self::INDEX_ID_USER, $stdate, $eddate,$arr , $companyID, $dtype, $contrast);
                             $trendData['pkUserNo']['src'] = $data;
                             if ($contrast == 'mom' || $contrast == 'yoy') {
                                 $arr = $this->getDateFunc($dtype, $contrast, $stdate, $eddate);
                                 $stdate_c = $arr['start'];
                                 $eddate_c = $arr['end'];
-                                $data = $this->getData(self::INDEX_ID_USER, $stdate_c, $eddate_c, self::PK, $companyID, $dtype, $contrast);
+                                $data = $this->getData(self::INDEX_ID_USER, $stdate_c, $eddate_c, $arr, $companyID, $dtype, $contrast);
                                 $trendData['pkUserNo']['new'] = $data;
                             }
 
                         } elseif ($val == 'cluser') {
-                            $data = $this->getData(self::INDEX_ID_USER, $stdate, $eddate, self::MAP_QUIZ, $companyID, $dtype, $contrast);
+                            $arr = array(self::MAP_QUIZ);
+                            $data = $this->getData(self::INDEX_ID_USER, $stdate, $eddate, $arr, $companyID, $dtype, $contrast);
                             $trendData['challengeUserNo']['src'] = $data;
                             if ($contrast == 'mom' || $contrast == 'yoy') {
                                 $arr = $this->getDateFunc($dtype, $contrast, $stdate, $eddate);
                                 $stdate_c = $arr['start'];
                                 $eddate_c = $arr['end'];
-                                $data = $this->getData(self::INDEX_ID_USER, $stdate_c, $eddate_c, self::MAP_QUIZ, $companyID, $dtype, $contrast);
+                                $data = $this->getData(self::INDEX_ID_USER, $stdate_c, $eddate_c, $arr, $companyID, $dtype, $contrast);
                                 $trendData['challengeUserNo']['new'] = $data;
                             }
+                        } elseif($val == 'nopt')
+                        {
+                            $arr = array();
+                            $data = $this->getData(self::INDEX_ID_PATICIPATE, $stdate, $eddate, $arr, $companyID, $dtype, $contrast);
+                            $trendData['paticipateNo']['src'] = $data;
+
+                        }
+                        elseif ($val == 'ltimes')
+                        {
+                            $arr = array(self::COURSE_QUIZ,self::COURSE_STUDY);
+                            $data = $this->getData(self::INDEX_ID_TIME, $stdate, $eddate, $arr, $companyID, $dtype, $contrast);
+                            $trendData['learningTimes']['src'] = $data;
                         }
 
                     }
@@ -171,7 +187,7 @@ class TrendController extends Controller
     }
 
 
-        private function getData($indexid,$startdate,$enddate,$eventName='',$companyId,$date,$contrast)
+        private function getData($indexid,$startdate,$enddate,$eventName=array(),$companyId,$date,$contrast)
         {
         $constNum = 'num';
         $data = array();
@@ -181,7 +197,7 @@ class TrendController extends Controller
             if($date == 'day')
             {
                 $day = $startdate;
-                if(empty($eventName))
+                if(!count($eventName))
                 {
                     $data= Olap_index::where('company_id','=',intval($companyId))
                         ->where('index_id','=',$indexid)
@@ -196,7 +212,7 @@ class TrendController extends Controller
                 else
                 {
                     $data= Olap_index::where('company_id','=',intval($companyId))
-                        ->where('event_name','=',$eventName)
+                        ->whereIn('event_name',$eventName)
                         ->where('index_id','=',$indexid)
                         ->whereBetween('olap_date',array($startdate,$enddate))
                         ->where('department','=','all')
@@ -486,10 +502,10 @@ class TrendController extends Controller
         return false;
     }
 
-    private function  getdatabyday($companyId,$indexid,$eventName,$day)
+    private function  getdatabyday($companyId,$indexid,$eventName =array(),$day)
     {
         $data = array();
-        if(empty($eventName))
+        if(!count($eventName))
         {
             $data= Olap_index::where('company_id','=',intval($companyId))
                 ->where('index_id','=',$indexid)
@@ -502,7 +518,7 @@ class TrendController extends Controller
         else
         {
             $data= Olap_index::where('company_id','=',intval($companyId))
-                ->where('event_name','=',$eventName)
+                ->whereIn('event_name',$eventName)
                 ->where('index_id','=',$indexid)
                 ->where('olap_date','=',$day)
                 ->where('department','=','all')

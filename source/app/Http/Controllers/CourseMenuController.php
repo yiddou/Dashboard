@@ -27,7 +27,7 @@ class CourseMenuController extends Controller
         {
             $data = array();
 
-            $eventarr = Event_dim::whereIN('event_id',array(1,2))->pluck('event_name','event_id');
+            $eventarr = Event_dim::all()->pluck('event_name','event_id');
 
             $data['action_name'] = $eventarr;
             $data['department'] = Department_dim::where('company_id','=',$companyID)->distinct('department')->pluck('department');
@@ -38,6 +38,8 @@ class CourseMenuController extends Controller
 
             $data['parent_category'] = Category_dim::where('company_id','=',$companyID)
                 ->distinct('parent_category_id')->pluck('parent_category_name','parent_category_id');
+
+
 
             $data['coures_type'][1] = 'general';
             $data['coures_type'][0] ='customized';
