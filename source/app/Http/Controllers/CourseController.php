@@ -143,12 +143,17 @@ class CourseController extends Controller
     }
 
 
-    public function getCourse($id,Request $request)
+    public function getCourse($uid,Request $request)
     {
+
         $companyid= $request->get('cmpid','');
-        if(!empty($id)&&intval($companyid))
+
+
+
+        if(isset($uid)&&intval($companyid))
         {
-            $data  = Olap_course::where('course_type','=',$id)
+
+            $data  = Olap_course::where('course_type','=',$uid)
                      ->where('company_id','=',$companyid)->distinct('course_id')->pluck('course_name','course_id');
 
             return $data;
