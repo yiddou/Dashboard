@@ -17,6 +17,7 @@ class ErrorCode
     const UNKNOWN_RESET = '003';
     const EMPTY_NAME_PWD = '004';
     const UNKNOWN_EMAIL = '005';
+    const SAME_USRNAME = '006';
 
 
     const ERROR  = '001';

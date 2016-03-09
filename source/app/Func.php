@@ -4,9 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class UserInfo extends Model
+class Func extends Model
 {
     //
-    protected $table = 'user_info';
-
+    protected $table = 'function';
 }

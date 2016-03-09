@@ -16,11 +16,9 @@ class TimeController extends Controller
     {
         $companyID = $request->get('cmpid', '');
 
-        $userInfo = UserInfo::where('user_id', '=', intval($uid))
-            ->where('company_id', '=', intval($companyID))
-            ->where('status', '=', 1)
-            ->first();
-        if(isset($userInfo)&&count($userInfo))
+        $userInfo = Validate::user($uid,$companyID);
+
+        if($userInfo)
         {
             $weeks =array(1=>'Monday',2=>'Tuesday',3=>'Wednesday',4=>'Thursday',5=>'Friday',6=>'Saturday',7=>'Sunday');
 

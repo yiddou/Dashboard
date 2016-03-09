@@ -17,23 +17,37 @@ Route::get('/', function () {
 
 
 
-Route::post('/admin/login','AdminController@login');
-Route::post('/admin/reset','AdminController@resetPassword');
-Route::post('/admin/cmail','AdminController@confirmMail');
-Route::get('/snapshot/{uid}','SnapshotController@index');
-Route::get('/trend/{uid}','TrendController@index');
-Route::get('/cfilters/{uid}','CourseMenuController@index');
-Route::get('/getcate/{id}','CategoryController@getCategory');
-Route::get('/course/{uid}','CourseController@index');
-Route::get('/getcourse/{uid}','CourseController@getCourse');
-Route::get('/lstar/{uid}','StarController@index');
-Route::get('/time/{uid}','TimeController@index');
+
+Route::get('/snapshot/{uid}','SnapshotController@index'); //
+Route::get('/trend/{uid}','TrendController@index');//
+Route::get('/cfilters/{uid}','CourseMenuController@index');//
+Route::get('/getcate/{id}','CategoryController@getCategory');//
+Route::get('/course/{uid}','CourseController@index');//
+Route::get('/getcourse/{uid}','CourseController@getCourse');//
+Route::get('/lstar/{uid}','StarController@index'); //
+Route::get('/time/{uid}','TimeController@index');//
 Route::get('/getcmps/{uid}','CompanyController@getcompany');
 
+Route::post('/admin/login','AdminController@login');
+Route::post('/admin/reset','AdminController@resetPassword');
+Route::post('/admin/change','AdminController@changeAdminInfo');
+Route::get('/admin/forget','AdminController@fogetpassword');
 
+Route::post('/user/insert','UserMgrController@insertuser');
+Route::post('/user/login','UserMgrController@login');
+Route::get('/user/list','UserMgrController@getlist');
+Route::post('/user/reset/{uid}','UserMgrController@resetPassword');
+Route::post('/user/delete/{uid}','UserMgrController@deleteuser');
+Route::post('/user/status/{uid}','UserMgrController@changestatus');
+Route::post('/user/update/{uid}','UserMgrController@updateuser');
 
+Route::post('/role/add','RoleController@addrole');
+Route::post('/role/update/{roleid}','RoleController@updaterole');
+Route::get('/role/list','RoleController@getroles');
+Route::post('/role/list','RoleController@getroles');
+Route::post('/role/delete/{roleid}','RoleController@deleterole');
 
-
+Route::get('/func/list','FunctionController@getfuncs');
 
 
 /*

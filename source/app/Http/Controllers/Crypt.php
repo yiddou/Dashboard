@@ -10,10 +10,10 @@ namespace App\Http\Controllers;
 
 class Crypt {
 
-    private $crypt_key ='123456';
+    private static $crypt_key ='Qwert123';
 
 
-    public function php_encrypt($str) {
+    public static function php_encrypt($str) {
         srand((double)microtime() * 1000000);
         $encrypt_key = md5(rand(0,32000));
         $ctr = 0;
@@ -22,11 +22,11 @@ class Crypt {
             $ctr = $ctr == strlen($encrypt_key) ? 0 : $ctr;
             $tmp .= $encrypt_key[$ctr].($str[$i]^$encrypt_key[$ctr++]);
         }
-        return base64_encode(self::__key($tmp,$this -> crypt_key));
+        return base64_encode(self::__key($tmp,self::$crypt_key));
     }
 
-    public function php_decrypt($str) {
-        $str = self::__key(base64_decode($str),$this -> crypt_key);
+    public static function php_decrypt($str) {
+        $str = self::__key(base64_decode($str),self::$crypt_key);
         $tmp = '';
         for($i = 0;$i < strlen($str); $i++) {
             $md5 = $str[$i];
@@ -35,7 +35,7 @@ class Crypt {
         return $tmp;
     }
 
-    private function __key($txt,$encrypt_key) {
+    private static function __key($txt,$encrypt_key) {
         $encrypt_key = md5($encrypt_key);
         $ctr = 0;
         $tmp = '';

@@ -44,12 +44,9 @@ class TrendController extends Controller
         $eventName = array();
         if ($uid && isset($metrics) && isset($stdate) && isset($eddate) && isset($dtype) && isset($contrast)) {
 
-            $userInfo = UserInfo::where('user_id', '=', intval($uid))
-                ->where('company_id', '=', intval($companyID))
-                ->where('status', '=', 1)
-                ->first();
+            $userInfo = Validate::user($uid,$companyID);
 
-            if (isset($userInfo) && count($userInfo)) {
+            if ($userInfo) {
                 $metricsArr = explode('_', $metrics);
                 if (count($metricsArr)) {
                     foreach ($metricsArr as $val) {

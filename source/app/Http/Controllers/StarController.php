@@ -26,13 +26,9 @@ class StarController extends Controller
         $cateid = $request->get('cateid','');
         $coureid = $request->get('cid','');
 
+        $userInfo = Validate::user($uid,$companyID);
 
-        $userInfo = UserInfo::where('user_id', '=', intval($uid))
-            ->where('company_id', '=', intval($companyID))
-            ->where('status', '=', 1)
-            ->first();
-
-        if(isset($userInfo)&&count($userInfo))
+        if($userInfo)
         {
 
             if(!empty($stdate)&&!empty($eddate)&& intval($limit)>0 && !empty($ltype) &&!empty($eventid) && !empty($coursetype) && !empty($department))

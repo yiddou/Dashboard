@@ -52,12 +52,10 @@ class SnapshotController extends Controller
 
             $today = date("Ymd");
             $month = CommonFunc::getTheMonth($today);
-            $userInfo = UserInfo::where('user_id', '=', intval($uid))
-                ->where('company_id', '=', intval($companyID))
-                ->where('status', '=', 1)
-                ->first();
 
-            if(isset($userInfo) && count($userInfo))
+            $userInfo = Validate::user($uid,$companyID);
+
+            if($userInfo)
             {
                 $learningHours = Olap_index::where('company_id','=',intval($companyID))
                     ->whereIn('event_name',[self::COURSE_STUDY,self::COURSE_QUIZ])
@@ -250,7 +248,7 @@ class SnapshotController extends Controller
         }
         else
         {
-
+            return array();
         }
     }
 }

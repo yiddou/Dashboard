@@ -26,12 +26,9 @@ class CourseController extends Controller
         $cateid = $request->get('cateid','');
 
 
-        $userInfo = UserInfo::where('user_id', '=', intval($uid))
-            ->where('company_id', '=', intval($companyID))
-            ->where('status', '=', 1)
-            ->first();
+        $userInfo = Validate::user($uid,$companyID);
 
-        if(isset($userInfo)&&count($userInfo))
+        if($userInfo)
         {
             if(!empty($stdate) && !empty($eddate) && !empty($department) && !empty($eventid) && !empty($coursetype))
             {
