@@ -28,6 +28,7 @@
             .content {
                 text-align: center;
                 display: inline-block;
+                font-size: 24px;
             }
 
             .title {
@@ -38,7 +39,8 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">$name</div>
+                <div class="content">用户名:{{$password}}</div>
+                <div class="content">密码:{{$password}}</div>
             </div>
         </div>
     </body>

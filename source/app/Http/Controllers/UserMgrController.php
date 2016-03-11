@@ -26,6 +26,7 @@ class UserMgrController extends Controller
         $status  = $request->input('status','');
         $role_id = $request->input('roleid', '');
         $company_ids = $request->input('cmpid', '');
+        $type = $request->input('type','');
         $user_info = User_mgr::where('name', '=', $name)->first();
 
         if (isset($user_info) && count($user_info)) {
@@ -41,28 +42,57 @@ class UserMgrController extends Controller
             $user->department = $department;
             $user->realname  =$realname;
             $user->status = $status;
+            $user->type = $type;
             $user->update_date = date('Y-m-d h:i:s',time()+8*3600);
             $user->save();
             $userid = $user->id;
-            if (!empty($role_id)) {
-                $role_user = new User_role();
-                $role_user->user_id = $userid;
-                $role_user->role_id = $role_id;
-                $role_user->status = $status;
-                $role_user->save();
-            }
-            if (!empty($company_ids)) {
-                $arr = explode('_', $company_ids);
-                foreach ($arr as $val) {
-                    $userinfo = new UserInfo();
-                    $userinfo->user_id = $userid;
-                    $userinfo->company_id = $val;
-                    $userinfo->status = $status;
-                    $userinfo->save();
-                }
-            }
+
+
             return array('result'=>'success');
 
+        }
+    }
+
+    public  function  assignrole($uid,Request $request)
+    {
+        $role_id = $request->input('roleid', '');
+        $status  = $request->input('status','');
+        if (!empty($role_id)&&!empty($status)) {
+            $role_user = new User_role();
+            $role_user->user_id = $uid;
+            $role_user->role_id = $role_id;
+            $role_user->status = $status;
+            $role_user->save();
+            return array('result'=>'success');
+        }
+        else
+        {
+            $data = array();
+            $data['errorcode'] = ErrorCode::AUTH .ErrorCode::INVALID_PARAM;
+            return $data;
+        }
+    }
+
+    public  function  assigncompanys($uid,Request $request)
+    {
+        $status  = $request->input('status','');
+        $company_ids = $request->input('cmpid','');
+        if (!empty($company_ids)) {
+            $arr = explode('_', $company_ids);
+            foreach ($arr as $val) {
+                $userinfo = new UserInfo();
+                $userinfo->user_id = $uid;
+                $userinfo->company_id = $val;
+                $userinfo->status = $status;
+                $userinfo->save();
+            }
+            return array('result'=>'success');
+        }
+        else
+        {
+            $data = array();
+            $data['errorcode'] = ErrorCode::AUTH .ErrorCode::INVALID_PARAM;
+            return $data;
         }
     }
 
@@ -85,12 +115,16 @@ class UserMgrController extends Controller
                     {
                         $arr['id'] = $data['id'];
                         $arr['name'] = $data['name'];
+                        $arr['employee_id'] = $data['employee_id'];
+                        $arr['department']  = $data['department'];
+                        $arr['realname'] = $data['realname'];
+                        $arr['type'] = $data['type'];
 
                         $roledata = User_role::where('user_id','=',$data['id'])
                             ->where('status','=',1)
                             ->first();
                         $functiondata = Role_function::where('role_id','=',$roledata['role_id'])->lists('function_id');
-                        $arr['fucntion'] = $functiondata;
+                        $arr['function'] = $functiondata;
 
                         $user_id = $data['id'];
                         $temp  =array();
@@ -114,16 +148,46 @@ class UserMgrController extends Controller
                 else
                 {
                     $data = array();
-                    $data['errorcode'] = ErrorCode::AUTH . ErrorCode::UNKNOWN_USRNAMED;
+                    $data['errorcode'] = ErrorCode::AUTH . ErrorCode::UNKNOWN_USRNAME;
                     return $data;
                 }
+            }
+            else
+            {
+                $data = array();
+                $data['errorcode'] = ErrorCode::AUTH . ErrorCode::UNKNOWN_USRNAME;
+                return $data;
             }
             return $arr;
         }
 
-    public  function  getlist()
+    public  function  getlist($cmpid)
     {
-        $data = User_mgr::where('is_deleted','=',0)->get();
+        $user_comp = UserInfo::where('company_id','=',$cmpid)
+                     ->distinct('user_id')->get();
+
+        $user_ids = array();
+
+        if(count($user_comp))
+        {
+            foreach($user_comp as $val)
+            {
+                array_push($user_ids,$val['user_id']);
+            }
+
+        }
+
+        $data = array();
+        if(count($user_ids))
+        {
+            $data = User_mgr::where('is_deleted','=','0')
+            ->whereIn('id',$user_ids)->get();
+        }
+        else
+        {
+            return array();
+        }
+
 
         $temp = array();
         foreach($data as $val)
@@ -138,6 +202,7 @@ class UserMgrController extends Controller
             $arr['employee_id'] = $val['employee_id'];
             $arr['department']= $val['department'];
             $arr['status'] = $val['status'];
+            $arr['type'] = $val['type'];
             $roledata = User_role::where('user_id','=',$val['id'])
                         ->first();
             $role = Role::where('id','=',$roledata['role_id'])->first();
@@ -145,11 +210,15 @@ class UserMgrController extends Controller
             if(count($roledata)&&count($role)) {
                 $arr['roleid'] = $role['id'];
                 $arr['rolename'] = $role['name'];
+                $datatmp = Role_function::where('role_id','=',$role['id'])
+                                          ->distinct('function_id')->pluck('function_id');
+                $arr['function'] = $datatmp;
             }
             else
             {
                 $arr['roleid'] = '';
                 $arr['rolename'] = '';
+                $arr['function'] = '';
             }
 
             $sql = "select a.company_id,b.company_en_name from user_info a join company_dim b on a.company_id = b.company_id where a.user_id = $user_id  ";
@@ -270,6 +339,7 @@ class UserMgrController extends Controller
         $status  = $request->input('status','');
         $role_id = $request->input('roleid', '');
         $company_ids = $request->input('cmpid', '');
+        $type = $request->input('type','');
         $user_data = User_mgr::where('name', '=', $name)->first();
 
         if (isset($user_data) && count($user_data)) {
@@ -284,6 +354,7 @@ class UserMgrController extends Controller
             $user_info->department = $department;
             $user_info->realname  =$realname;
             $user_info->status = $status;
+            $user_info->$type = $type;
             $user_info->update_date = date("Y-m-d H:i:s",time()+8*3600);
             $user_info->save();
             $userid = $user_info['id'];
