@@ -42,6 +42,7 @@ Route::post('/user/status/{uid}','UserMgrController@changestatus');
 Route::post('/user/update/{uid}','UserMgrController@updateuser');
 Route::post('/user/assignrole/{uid}','UserMgrController@assignrole');
 Route::post('/user/assigncmp/{uid}','UserMgrController@assigncompanys');
+Route::get('/user/get/{uid}','UserMgrController@getuser');
 
 Route::post('/role/add','RoleController@addrole');
 Route::post('/role/update/{roleid}','RoleController@updaterole');

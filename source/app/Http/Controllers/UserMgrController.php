@@ -58,6 +58,8 @@ class UserMgrController extends Controller
         $role_id = $request->input('roleid', '');
         $status  = $request->input('status','');
         if (!empty($role_id)&&!empty($status)) {
+            $sql ="delete from user_role where user_id =$uid ";
+            DB::delete($sql);
             $role_user = new User_role();
             $role_user->user_id = $uid;
             $role_user->role_id = $role_id;
@@ -79,6 +81,8 @@ class UserMgrController extends Controller
         $company_ids = $request->input('cmpid','');
         if (!empty($company_ids)) {
             $arr = explode('_', $company_ids);
+            $sql  = "delete from user_info where user_id = $uid";
+            DB::delete($sql);
             foreach ($arr as $val) {
                 $userinfo = new UserInfo();
                 $userinfo->user_id = $uid;
@@ -160,6 +164,7 @@ class UserMgrController extends Controller
             }
             return $arr;
         }
+
 
     public  function  getlist($cmpid)
     {
@@ -252,6 +257,33 @@ class UserMgrController extends Controller
                  return array('result'=>'success');
             }
         }
+        else
+        {
+            $data = array();
+            $data['errorcode'] = ErrorCode::AUTH . ErrorCode::INVALID_PARAM;
+            return $data;
+        }
+    }
+
+    public function getuser($uid)
+    {
+        if($uid == 0)
+        {
+            $user_info = User_mgr::where('name','=','admin')->find();
+            return $user_info;
+        }
+        elseif($uid>0)
+        {
+            $user_info = User_mgr::where('id','=',$uid)->find();
+            return $user_info;
+        }
+        else
+        {
+            $data = array();
+            $data['errorcode'] = ErrorCode::AUTH .ErrorCode::INVALID_PARAM;
+            return $data;
+
+        }
     }
 
     public function changepassword($uid,Request $request)
@@ -337,8 +369,6 @@ class UserMgrController extends Controller
         $department = $request->input('dpm', '');
         $realname = $request->input('rname','');
         $status  = $request->input('status','');
-        $role_id = $request->input('roleid', '');
-        $company_ids = $request->input('cmpid', '');
         $type = $request->input('type','');
         $user_data = User_mgr::where('name', '=', $name)->first();
 
@@ -348,7 +378,6 @@ class UserMgrController extends Controller
             return $data;
         } else {
             $user_info = User_mgr::where('id', '=', $uid)->first();
-            $data = array();
             $user_info->name = $name;
             $user_info->employee_id = $employee_id;
             $user_info->department = $department;
@@ -357,31 +386,10 @@ class UserMgrController extends Controller
             $user_info->$type = $type;
             $user_info->update_date = date("Y-m-d H:i:s",time()+8*3600);
             $user_info->save();
-            $userid = $user_info['id'];
-            if (!empty($role_id)) {
-                $sql ="delete from user_role where user_id =$userid ";
-                DB::delete($sql);
 
-                $role_user = new User_role();
-                $role_user->user_id = $userid;
-                $role_user->role_id = $role_id;
-                $role_user->status = $status;
-                $role_user->save();
-            }
-            if (!empty($company_ids)) {
+            $data = User_mgr::where('id', '=', $uid)->first();
 
-                $arr = explode('_', $company_ids);
-                $sql  = "delete from user_info where user_id = $userid";
-                DB::delete($sql);
-
-                foreach ($arr as $val) {
-                    $userinfo = new UserInfo();
-                    $userinfo->user_id = $userid;
-                    $userinfo->company_id = $val;
-                    $userinfo->status = $status;
-                    $userinfo->save();
-                }
-            }
+            return $data;
 
         }
     }

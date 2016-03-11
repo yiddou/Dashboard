@@ -46,6 +46,7 @@ class AdminController extends Controller
                         $arr['function'] = Func::all()->pluck('id');
                         $arr['role'] = 0;
                         $arr['role_name'] = 'super_admin';
+                        $arr['type'] = $data['type'];
                         $arr['company'] = Company_dim::all()->pluck('company_en_name', 'company_id');
 
                         return $arr;
@@ -58,7 +59,8 @@ class AdminController extends Controller
                         $arr['realname'] = $data['rname'];
                         $arr['employee_id'] = $data['employee_id'];
                         $arr['department']  = $data['department'];
-
+                        $arr['email']  = $data['email'];
+                        $arr['type']  = $data['type'];
                         $roledata = User_role::where('user_id','=',$data['id'])
                             ->where('status','=',1)
                             ->first();
