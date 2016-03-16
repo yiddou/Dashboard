@@ -50,7 +50,8 @@ class SnapshotController extends Controller
             $recruitNo = 0;
 
 
-            $today = date("Ymd");
+            $today = date("Ymd",strtotime('-1 day'));
+
             $month = CommonFunc::getTheMonth($today);
 
             $userInfo = Validate::user($uid,$companyID);
@@ -58,8 +59,7 @@ class SnapshotController extends Controller
             if($userInfo)
             {
                 $learningHours = Olap_index::where('company_id','=',intval($companyID))
-                    ->whereIn('event_name',[self::COURSE_STUDY,self::COURSE_QUIZ])
-                    ->where('index_id','=',self::INDEX_ID_HOUR)
+                    ->where('index_id','=',self::INDEX_ID_LEARNINGHOURS)
                     ->where('olap_date','=',$today)
                     ->where('department','=','all')
                     ->where('department1','=','all')
@@ -67,10 +67,13 @@ class SnapshotController extends Controller
                     ->where('department3','=','all')->get();
 
 
-                $learningUsers = Olap_user::where('company_id','=',intval($companyID))
-                    ->whereIn('event_name',[self::COURSE_STUDY,self::COURSE_QUIZ])
-                    ->whereBetween('olap_date',array('20150102','20150103'))
-                    ->distinct('user_id')->count();
+                $learningUsers = Olap_index::where('company_id','=',intval($companyID))
+                    ->where('index_id','=',self::INDEX_ID_LEARNINGP)
+                    ->where('olap_date','=',$today)
+                    ->where('department','=','all')
+                    ->where('department1','=','all')
+                    ->where('department2','=','all')
+                    ->where('department3','=','all')->first();
 
 
                 $userLogins = Olap_index::where('company_id','=',intval($companyID))
@@ -170,7 +173,15 @@ class SnapshotController extends Controller
                     {
                         $lHours += intval($val['num_month']);
                     }
+                    $lHours = intval($lHours/3600);
                 }
+
+                if(isset($learningUsers)&&count($learningUsers))
+                {
+                    $lUsers = intval($learningUsers['num_month']);
+                }
+
+
 
 
                 if(isset($userLogins)&&count($userLogins))
@@ -230,7 +241,7 @@ class SnapshotController extends Controller
                 }
 
                 $snapshotarr['learningHours'] = $lHours;
-                $snapshotarr['learningUsers'] = $learningUsers;
+                $snapshotarr['learningUsers'] = $lUsers;
                 $snapshotarr['users'] = $Users ;
                 $snapshotarr['util'] = $util;
                 $snapshotarr['mau'] = $mau;

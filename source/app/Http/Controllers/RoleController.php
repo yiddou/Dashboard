@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Func;
 use App\Role;
 use App\Role_function;
 use Illuminate\Http\Request;
@@ -89,7 +90,23 @@ class RoleController extends Controller
     public  function getroles()
     {
         $data = Role::where('is_deleted','=',0)->get();
-        return $data;
+        $data_a  = array();
+        foreach($data as $val)
+        {
+            $arr = array();
+            $roleid = $val['id'];
+            $arr['id']  =$val['id'];
+            $arr['name'] =$val['name'];
+            $arr['description'] = $val['description'];
+            $arr['insert_date']  =$val['insert_date'];
+            $sql =  "select a.id,a.name,a.description from function a join role_function b on a.id = b.function_id where b.role_id = $roleid ";
+            $data_arr = DB::select($sql);
+            $temp = json_decode(json_encode( $data_arr), true);
+            $arr['function'] = $temp;
+            array_push($data_a,$arr);
+
+        }
+        return $data_a;
     }
 
     public  function  deleterole($roleid)

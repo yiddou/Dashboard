@@ -50,7 +50,7 @@ Route::get('/role/list','RoleController@getroles');
 Route::post('/role/delete/{roleid}','RoleController@deleterole');
 
 Route::get('/func/list','FunctionController@getfuncs');
-
+Route::get('/log/list','LogController@getlog');
 
 /*
 |--------------------------------------------------------------------------

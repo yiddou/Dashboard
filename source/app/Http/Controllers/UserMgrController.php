@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Role;
 use App\Role_function;
+use App\Trans_log;
 use App\User;
 use App\User_mgr;
 use App\User_role;
@@ -21,10 +22,12 @@ class UserMgrController extends Controller
     {
         $name = $request->input('name', '');
         $employee_id = $request->input('empid', '');
+        $password = $request->input('pwd','');
         $department = $request->input('dpm', '');
         $realname = $request->input('rname','');
         $status  = $request->input('status','');
         $role_id = $request->input('roleid', '');
+        $email = $request->input('email', '');
         $company_ids = $request->input('cmpid', '');
         $type = $request->input('type','');
         $user_info = User_mgr::where('name', '=', $name)->first();
@@ -37,16 +40,34 @@ class UserMgrController extends Controller
             $data = array();
             $user = new User_mgr();
             $user->name = $name;
-            $user->password = Crypt::php_encrypt($name);
+            if(empty($password))
+            {
+                $user->password = Crypt::php_encrypt($name);
+            }
+            else
+            {
+                $user->password = Crypt::php_encrypt($password);
+            }
+
             $user->employee_id = $employee_id;
             $user->department = $department;
             $user->realname  =$realname;
             $user->status = $status;
+            $user->email = $email;
             $user->type = $type;
             $user->update_date = date('Y-m-d h:i:s',time()+8*3600);
             $user->save();
             $userid = $user->id;
-
+            if (!empty($company_ids)) {
+                $arr = explode('_', $company_ids);
+                foreach ($arr as $val) {
+                    $userinfo = new UserInfo();
+                    $userinfo->user_id = $userid;
+                    $userinfo->company_id = $val;
+                    $userinfo->status = $status;
+                    $userinfo->save();
+                }
+            }
 
             return array('result'=>'success');
 
@@ -83,12 +104,15 @@ class UserMgrController extends Controller
             $arr = explode('_', $company_ids);
             $sql  = "delete from user_info where user_id = $uid";
             DB::delete($sql);
+            if($arr[0]!=0)
+            {
             foreach ($arr as $val) {
                 $userinfo = new UserInfo();
                 $userinfo->user_id = $uid;
                 $userinfo->company_id = $val;
                 $userinfo->status = $status;
                 $userinfo->save();
+             }
             }
             return array('result'=>'success');
         }
@@ -122,6 +146,7 @@ class UserMgrController extends Controller
                         $arr['employee_id'] = $data['employee_id'];
                         $arr['department']  = $data['department'];
                         $arr['realname'] = $data['realname'];
+                        $arr['email'] = $data['email'];
                         $arr['type'] = $data['type'];
 
                         $roledata = User_role::where('user_id','=',$data['id'])
@@ -140,6 +165,12 @@ class UserMgrController extends Controller
                             $temp[$val['company_id']] = $val['company_en_name'];
                         }
                         $arr['company'] = $temp;
+
+                        //insert log
+                        $log = new Trans_log();
+                        $log->event = 'login';
+                        $log->bywho = $arr['name'];
+                        $log->save();
                     }
                     else
                     {
@@ -206,6 +237,7 @@ class UserMgrController extends Controller
             $arr['realname'] = $val['realname'];
             $arr['employee_id'] = $val['employee_id'];
             $arr['department']= $val['department'];
+            $arr['email']= $val['email'];
             $arr['status'] = $val['status'];
             $arr['type'] = $val['type'];
             $roledata = User_role::where('user_id','=',$val['id'])
@@ -269,12 +301,12 @@ class UserMgrController extends Controller
     {
         if($uid == 0)
         {
-            $user_info = User_mgr::where('name','=','admin')->find();
+            $user_info = User_mgr::where('name','=','admin')->first();
             return $user_info;
         }
         elseif($uid>0)
         {
-            $user_info = User_mgr::where('id','=',$uid)->find();
+            $user_info = User_mgr::where('id','=',$uid)->first();
             return $user_info;
         }
         else
@@ -364,33 +396,40 @@ class UserMgrController extends Controller
 
     public  function  updateuser($uid,Request $request)
     {
-        $name = $request->input('name', '');
         $employee_id = $request->input('empid', '');
         $department = $request->input('dpm', '');
+        $password = $request->input('pwd','');
         $realname = $request->input('rname','');
         $status  = $request->input('status','');
+        $email = $request->input('email','');
         $type = $request->input('type','');
-        $user_data = User_mgr::where('name', '=', $name)->first();
+        $user_info = User_mgr::where('id', '=', $uid)->first();
+          if(count($user_info))
+          {
+              $user_info->employee_id = $employee_id;
+              $user_info->department = $department;
+              $user_info->realname  =$realname;
+              $user_info->status = $status;
+              $user_info->email = $email;
+              $user_info->type = $type;
+              if(!empty($password))
+              {
+                  $user_info->password = Crypt::php_encrypt($password);
+              }
+              $user_info->update_date = date("Y-m-d H:i:s",time()+8*3600);
+              $user_info->save();
 
-        if (isset($user_data) && count($user_data)) {
+              $data = User_mgr::where('id', '=', $uid)->first();
+
+              return $data;
+          }
+        else
+        {
             $data = array();
-            $data['errorcode'] = ErrorCode::AUTH . ErrorCode::SAME_USRNAME;
+            $data['errorcode'] = ErrorCode::AUTH.ErrorCode::INVALID_PARAM;
             return $data;
-        } else {
-            $user_info = User_mgr::where('id', '=', $uid)->first();
-            $user_info->name = $name;
-            $user_info->employee_id = $employee_id;
-            $user_info->department = $department;
-            $user_info->realname  =$realname;
-            $user_info->status = $status;
-            $user_info->$type = $type;
-            $user_info->update_date = date("Y-m-d H:i:s",time()+8*3600);
-            $user_info->save();
-
-            $data = User_mgr::where('id', '=', $uid)->first();
-
-            return $data;
-
         }
+
+
     }
 }

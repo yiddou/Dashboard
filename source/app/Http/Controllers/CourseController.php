@@ -37,12 +37,12 @@ class CourseController extends Controller
                 if($ltype == 1)
                 {
                     $learning_type = 'day_spend_time';
-                    $sql_select = " select company_name,course_id,course_name,sum($learning_type) as num from olap_course_intrim where olap_date between $stdate and $eddate ";
+                    $sql_select = " select company_name,course_id,course_name,sum($learning_type) as num from olap_course_intrim where olap_date between $stdate and $eddate and company_id = $companyID";
                 }
                 elseif($ltype ==2 )
                 {
                     $learning_type = 'day_num_of_times';
-                    $sql_select = " select company_name,course_id,course_name,sum($learning_type) as num from olap_course_intrim where olap_date between $stdate and $eddate ";
+                    $sql_select = " select company_name,course_id,course_name,sum($learning_type) as num from olap_course_intrim where olap_date between $stdate and $eddate and company_id = $companyID ";
                 }
                 elseif($ltype == 3) {
 
@@ -127,6 +127,7 @@ class CourseController extends Controller
                 {
                     $sql_select .= " and category_id =$cateid ";
                 }
+
 
                 $data = DB::select($sql_select.$sql);
                 return $data;

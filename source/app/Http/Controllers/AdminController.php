@@ -139,7 +139,6 @@ class AdminController extends Controller
 
     public function changeAdminInfo($uid,Request $request)
     {
-        $name = $request->input('name','');
         $email = $request->input('email','');
         $employee_id = $request->input('empid', '');
         $department = $request->input('dpm', '');
@@ -163,6 +162,7 @@ class AdminController extends Controller
             $data->email = $email;
             $data->realname = $realname;
             $data->update_date = date('Y-m-d h:i:s',time()+8*3600);
+            $data->save();
             return array('result' => 'success');
         }
         else
